@@ -7,16 +7,20 @@
 //
 
 #include <iostream>
+#include <ctime>
 #include "AVLTree.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, World!\n";
     AVLTree avltree;
-    for (int i = 0; i < 100000; ++i) {
+    auto begin = clock();
+    for (int i = 0; i < 1000000; ++i) {
         avltree.insert(i, i);
     }
+    auto end = clock();
+    
+    cout << double(end - begin) / CLOCKS_PER_SEC << "ms" << endl;
     return 0;
 }
