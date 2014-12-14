@@ -7,9 +7,16 @@
 //
 
 #include <iostream>
+#include "AVLTree.h"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
+    AVLTree avltree;
+    for (int i = 0; i < 100000; ++i) {
+        avltree.insert(i, i);
+    }
     return 0;
 }
