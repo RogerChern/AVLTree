@@ -47,24 +47,24 @@ private:
             _root = n;
             return;
         }
-        Node *iter = _root;
-        Node *pos  = _root;
-        while (iter != nullptr) {
-            pos = iter;
-            if (n -> value >= iter -> value) {
-                iter = iter -> right;
+        Node *x = _root;
+        Node *px  = _root;
+        while (x != nullptr) {
+            px = x;
+            if (n -> key >= x -> key) {
+                x = x -> right;
             }
             else {
-                iter = iter -> left;
+                x = x -> left;
             }
         }
-        if (pos -> value >= n -> value) {
-            pos -> left = n;
+        if (px -> key >= n -> key) {
+            px -> left = n;
         }
         else {
-            pos -> right = n;
+            px -> right = n;
         }
-        n -> parent = pos;
+        n -> parent = px;
         balance(n -> parent);
     }
     
