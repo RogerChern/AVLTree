@@ -12,16 +12,19 @@
 #include <random>
 #include <map>
 #include "AVLTree.h"
+#include "AVLT.h"
+#include "BST.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    AVLTree avltree;
+    AVLT tree;
     map<int, int> mp;
     vector<int> test1;
     vector<int> test2;
-    for (int i = 0; i < 1000000; ++i) {
+    vector<int> result;
+    for (int i = 0; i < 200000; ++i) {
         test1.push_back(i);
         test2.push_back(i);
     }
@@ -29,17 +32,22 @@ int main(int argc, const char * argv[]) {
     shuffle(test2.begin(), test2.end(), mt19937_64(clock()));
     
     
-    auto begin = clock();
+    
     for (int i : test1) {
-        avltree.insert(i, i);
+        tree.insert(i, i);
     }
     
+    auto begin = clock();
+    
     for (int i : test2) {
-        avltree.remove(i);
+        result.push_back(tree.search(i));
     }
     
     auto end = clock();
     
+    for (int i : test2) {
+        tree.remove(i);
+    }
     
     cout << double(end - begin) / CLOCKS_PER_SEC * 1000 << "ms" << endl;
     return 0;
