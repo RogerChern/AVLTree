@@ -23,12 +23,12 @@ private:
             key(k),
             value(val) { }
     };
-    Node *_root = nullptr;
+    Node *root_ = nullptr;
     static constexpr int ALLOWED_IMBALANCE = 1;
     
 private:
-    Node * search(int key) {
-        Node *x = _root;
+    Node * search(Node *t, int key) {
+        Node *x = root_;
         while (x != nullptr) {
             if (key > x -> key) {
                 x = x -> right;
@@ -43,12 +43,12 @@ private:
         return x;
     }
     void insert(Node *n) {
-        if (_root == nullptr) {
-            _root = n;
+        if (root_ == nullptr) {
+            root_ = n;
             return;
         }
-        Node *x = _root;
-        Node *px  = _root;
+        Node *x = root_;
+        Node *px  = root_;
         while (x != nullptr) {
             px = x;
             if (n -> key >= x -> key) {
@@ -98,19 +98,19 @@ private:
         }
     }
     
-    Node * findMin(Node *n) {
-        Node *x = n;
-        Node *px = n;
-        while (x != nullptr) {
-            px = x;
+    Node * findMin(Node *x) {
+        if (x == nullptr) {
+            return nullptr;
+        }
+        while (x -> left != nullptr) {
             x = x -> left;
         }
-        return px;
+        return x;
     }
     
     void transplant(Node *x, Node *y) {
         if (x -> parent == nullptr) {
-            _root = y;
+            root_ = y;
         }
         else if (x == x -> parent -> left) {
             x -> parent -> left = y;
@@ -149,7 +149,7 @@ private:
     void rotateWithLeft(Node *n) {
         Node *lchild = n -> left;
         if (n -> parent == nullptr) {
-            _root = lchild;
+            root_ = lchild;
         }
         else if (n == n -> parent -> left) {
             n -> parent -> left = lchild;
@@ -169,7 +169,7 @@ private:
     void rotateWithRight(Node *n) {
         Node *rchild = n -> right;
         if (n -> parent == nullptr) {
-            _root = rchild;
+            root_ = rchild;
         }
         else if (n == n -> parent -> left) {
             n -> parent -> left = rchild;
@@ -204,11 +204,15 @@ public:
     }
     
     void remove(int k) {
-        Node *x = search(k);
+        Node *x = search(x, k);
         if (x != nullptr) {
             remove(x);
         }
     }
+    int search(int key) {
+        return search(root_, key) -> value;
+    }
+
 };
 
 #endif
