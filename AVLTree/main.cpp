@@ -9,6 +9,7 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <algorithm>
 #include <random>
 #include <map>
 #include "AVLTree.h"
@@ -18,20 +19,17 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    AVLT tree;
+    BST tree;
     map<int, int> mp;
     vector<int> test1;
     vector<int> test2;
     vector<int> result;
-    for (int i = 0; i < 200000; ++i) {
+    for (int i = 0; i < 1000000; ++i) {
         test1.push_back(i);
         test2.push_back(i);
     }
     shuffle(test1.begin(), test1.end(), mt19937_64(clock()));
-    shuffle(test2.begin(), test2.end(), mt19937_64(clock()));
-    
-    
+    shuffle(test2.begin(), test2.end(), mt19937_64(clock()));   
     
     for (int i : test1) {
         tree.insert(i, i);
